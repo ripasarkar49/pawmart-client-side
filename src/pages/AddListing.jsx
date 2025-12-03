@@ -18,7 +18,7 @@ const AddListing = () => {
     if (selected === "Pets") {
       setPrice(0);
     } else {
-      setPrice(""); // অন্য category হলে empty
+      setPrice("");
     }
   };
 
@@ -31,7 +31,7 @@ const AddListing = () => {
     const form = e.target;
     const name = form.name.value;
     const category = form.category.value;
-    const priceValue = parseInt(price); // state থেকে নেওয়া
+    const priceValue = parseInt(price);
     const location = form.location.value;
     const description = form.description.value;
     const image = form.image.value;
@@ -51,23 +51,34 @@ const AddListing = () => {
 
     console.log(formData);
 
-    axios.post("http://localhost:3000/services", formData).then((res) => {
-      console.log(res);
-    });
+    axios
+      .post("http://localhost:3000/services", formData)
+      .then((res) => {
+        toast.success("Listing added successfully!");
+        form.reset();
+        setCategory("");
+        setPrice("");
+        setDate("");
+      })
+      .catch(() => {
+        toast.error("Failed to add listing");
+      });
   };
 
   return (
     <div>
       <Navbar />
       <div className="max-w-2xl mx-auto my-10 bg-white shadow-lg rounded-xl p-6">
-        <h2 className="text-2xl font-bold mb-5 text-center">
+        <h2 className="text-3xl text-blue-950 font-bold mb-5 text-center">
           Add New Listings (adoption or product)
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Product/Pet Name */}
           <div>
-            <label className="block font-semibold mb-1">Product / Pet Name</label>
+            <label className="block font-semibold mb-1">
+              Product / Pet Name
+            </label>
             <input
               type="text"
               name="name"

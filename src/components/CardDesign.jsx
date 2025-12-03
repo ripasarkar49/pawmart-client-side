@@ -19,8 +19,10 @@ const CardDesign = ({ pets }) => {
           <div className="card-body">
             <h2 className="card-title">{pet.name}</h2>
             <p>Category: {pet.category}</p>
-            <p>Location: {pet.location}</p>
+            <div className="flex justify-between">
+                <p>Location: {pet.location}</p>
             <p>Price: ${pet.price}</p>
+            </div>
 
             <div className="card-actions justify-end">
               <button className="btn btn-outline">See Details</button>
