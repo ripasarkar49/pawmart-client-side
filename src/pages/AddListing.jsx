@@ -1,37 +1,64 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
 
 const AddListing = () => {
   const { user } = useContext(AuthContext);
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const today = new Date().toISOString().split("T")[0];
+
+  const handleCategoryChange = (e) => {
+    const selected = e.target.value;
+    setCategory(selected);
+
+    if (selected === "Pets") {
+      setPrice(0);
+    } else {
+      setPrice(""); // অন্য category হলে empty
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const category = form.category.value;
-    const price = form.price.value;
+    const priceValue = parseInt(price); // state থেকে নেওয়া
     const location = form.location.value;
     const description = form.description.value;
     const image = form.image.value;
     const date = form.date.value;
     const email = form.email.value;
+
     const formData = {
       name,
       category,
-      price,
+      price: priceValue,
       location,
       description,
       image,
       date,
       email,
     };
+
     console.log(formData);
-    
+
+    axios.post("http://localhost:3000/services", formData).then((res) => {
+      console.log(res);
+    });
   };
+
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar />
       <div className="max-w-2xl mx-auto my-10 bg-white shadow-lg rounded-xl p-6">
         <h2 className="text-2xl font-bold mb-5 text-center">
           Add New Listings (adoption or product)
@@ -40,9 +67,7 @@ const AddListing = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Product/Pet Name */}
           <div>
-            <label className="block font-semibold mb-1">
-              Product / Pet Name
-            </label>
+            <label className="block font-semibold mb-1">Product / Pet Name</label>
             <input
               type="text"
               name="name"
@@ -57,12 +82,14 @@ const AddListing = () => {
             <select
               name="category"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              value={category}
+              onChange={handleCategoryChange}
             >
               <option value="">Select Category</option>
-              <option>Pets</option>
-              <option>pets Food</option>
-              <option>Accessories</option>
-              <option>pet Care Products</option>
+              <option value="Pets">Pets</option>
+              <option value="Food">Pets Food</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Care Products">Pet Care Products</option>
             </select>
           </div>
 
@@ -73,7 +100,10 @@ const AddListing = () => {
               type="number"
               name="price"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              value={price}
+              onChange={handlePriceChange}
               placeholder="0"
+              disabled={category === "Pets"} // Pets হলে edit disabled
             />
           </div>
 
@@ -117,6 +147,9 @@ const AddListing = () => {
               type="date"
               name="date"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              value={date}
+              min={today}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
 
@@ -141,7 +174,7 @@ const AddListing = () => {
           </button>
         </form>
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

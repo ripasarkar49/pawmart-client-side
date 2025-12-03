@@ -126,7 +126,7 @@ const Navbar = () => {
               />
               <button
                 onClick={handleLogout}
-                className={`${btnStyle} bg-red-500`}
+                className={`${btnStyle} bg-linear-to-r from-pink-500 to-purple-600`}
               >
                 Logout
               </button>

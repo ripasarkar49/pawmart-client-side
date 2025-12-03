@@ -1,10 +1,11 @@
 import React from "react";
-import PopularToys from "../components/PopularToys";
+
+import PetAndSupplies from "../components/PetAndSupplies";
 
 const Home = () => {
   return (
     <div>
-      <PopularToys></PopularToys>
+  <PetAndSupplies></PetAndSupplies>
     </div>
   );
 };

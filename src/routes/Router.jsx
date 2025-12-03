@@ -1,8 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import HomeLayoutes from "../layoutes/HomeLayoutes";
 import Home from "../pages/Home";
-import Toys from "../layoutes/Toys";
-import ToysData from "../components/ToysData";
 import ToyDetails from "../pages/ToyDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -12,6 +10,7 @@ import Loading from "../pages/Loading";
 import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
 import AddListing from "../pages/AddListing";
+import PetSuppliesDataAll from "../components/PetSuppliesDataAll";
 
 const router = createBrowserRouter([
   {
@@ -39,18 +38,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/toys",
-    element: (
-      <PrivateRoutes>
-        <Toys></Toys>
-      </PrivateRoutes>
-    ),
-    children: [
-      {
-        path: "/toys",
-        element: <ToysData></ToysData>,
-      },
-    ],
+    path: "/pets",
+    element: <PetSuppliesDataAll></PetSuppliesDataAll>,
   },
   {
     path: "/toy-details/:toyId",
