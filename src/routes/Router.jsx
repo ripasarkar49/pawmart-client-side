@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import HomeLayoutes from "../layoutes/HomeLayoutes";
 import Home from "../pages/Home";
-import ToyDetails from "../pages/ToyDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayouts from "../layoutes/AuthLayouts";
@@ -11,6 +10,7 @@ import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
 import AddListing from "../pages/AddListing";
 import PetSuppliesDataAll from "../components/PetSuppliesDataAll";
+import SeeDetails from "../pages/SeeDetails";
 
 const router = createBrowserRouter([
   {
@@ -42,13 +42,16 @@ const router = createBrowserRouter([
     element: <PetSuppliesDataAll></PetSuppliesDataAll>,
   },
   {
-    path: "/toy-details/:toyId",
+    path: "/see-details/:_id",
     element: (
       <PrivateRoutes>
-        <ToyDetails></ToyDetails>
+        <SeeDetails></SeeDetails>
       </PrivateRoutes>
     ),
-    loader: () => fetch("/toys.json"),
+    loader: ({ params }) => {
+      const id = params._id;
+      return fetch(`http://localhost:3000/services/${id}`);
+    },
     hydrateFallbackElement: <Loading></Loading>,
   },
   {

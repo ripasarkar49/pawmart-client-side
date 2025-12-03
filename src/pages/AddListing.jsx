@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddListing = () => {
   const { user } = useContext(AuthContext);
@@ -67,6 +68,7 @@ const AddListing = () => {
 
   return (
     <div>
+          <ToastContainer />
       <Navbar />
       <div className="max-w-2xl mx-auto my-10 bg-white shadow-lg rounded-xl p-6">
         <h2 className="text-3xl text-blue-950 font-bold mb-5 text-center">
@@ -74,6 +76,7 @@ const AddListing = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+        
           {/* Product/Pet Name */}
           <div>
             <label className="block font-semibold mb-1">
@@ -183,6 +186,7 @@ const AddListing = () => {
           >
             Submit
           </button>
+       
         </form>
       </div>
       <Footer />
