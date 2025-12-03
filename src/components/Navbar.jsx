@@ -39,18 +39,26 @@ const Navbar = () => {
         <li className="m-2 text-xl cursor-pointer hover:text-blue-600">Home</li>
       </Link>
       <Link to="/pets">
-        <li className="m-2 text-xl cursor-pointer hover:text-blue-600">Pets & Supplies</li>
+        <li className="m-2 text-xl cursor-pointer hover:text-blue-600">
+          Pets & Supplies
+        </li>
       </Link>
       {user && (
         <>
           <Link to="/add-listing">
-            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">Add Listing</li>
+            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">
+              Add Listing
+            </li>
           </Link>
           <Link to="/my-listings">
-            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">My Listings</li>
+            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">
+              My Listings
+            </li>
           </Link>
           <Link to="/my-orders">
-            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">My Orders</li>
+            <li className="m-2 text-xl cursor-pointer hover:text-blue-600">
+              My Orders
+            </li>
           </Link>
         </>
       )}
@@ -83,7 +91,7 @@ const Navbar = () => {
 
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="logo" className="w-8 h-8" />
-            <span className="text-3xl font-extrabold bg-gradient-to-r from-pink-500 to-blue-900 text-transparent bg-clip-text">
+            <span className="text-3xl font-extrabold bg-linear-to-r from-pink-500 to-blue-900 text-transparent bg-clip-text">
               PawMart
             </span>
           </Link>
@@ -103,7 +111,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/auth/register"
-                className={`${btnStyle} bg-gradient-to-r from-pink-500 to-purple-600`}
+                className={`${btnStyle} bg-linear-to-r from-pink-500 to-purple-600`}
               >
                 Register
               </Link>
@@ -116,7 +124,10 @@ const Navbar = () => {
                 title={user?.displayName}
                 className="w-12 h-12 rounded-full cursor-pointer"
               />
-              <button onClick={handleLogout} className={`${btnStyle} bg-red-500`}>
+              <button
+                onClick={handleLogout}
+                className={`${btnStyle} bg-red-500`}
+              >
                 Logout
               </button>
             </>
@@ -148,7 +159,9 @@ const Navbar = () => {
                 className="w-10 h-10 rounded-full"
               />
             )}
-            <span className="font-bold text-xl">{user ? user.email : "Guest User"}</span>
+            <span className="font-bold text-xl">
+              {user ? user.email : "Guest User"}
+            </span>
           </div>
           <button onClick={() => setOpen(false)}>✕</button>
         </div>
@@ -158,18 +171,24 @@ const Navbar = () => {
         <div className="p-4 border-t flex flex-col gap-2">
           {!user ? (
             <>
-              <Link to="/auth/login" className={`${btnStyle} bg-blue-600 w-full`}>
+              <Link
+                to="/auth/login"
+                className={`${btnStyle} bg-blue-600 w-full`}
+              >
                 Login
               </Link>
               <Link
                 to="/auth/register"
-                className={`${btnStyle} bg-gradient-to-r from-pink-500 to-purple-600 w-full`}
+                className={`${btnStyle} bg-linear-to-r from-pink-500 to-purple-600 w-full`}
               >
                 Register
               </Link>
             </>
           ) : (
-            <button onClick={handleLogout} className={`${btnStyle} bg-red-500 w-full`}>
+            <button
+              onClick={handleLogout}
+              className={`${btnStyle} bg-red-500 w-full`}
+            >
               Logout
             </button>
           )}
