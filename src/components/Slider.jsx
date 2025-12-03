@@ -56,7 +56,7 @@ const Slider = () => {
                 <img
                   src={slide.img}
                   alt={`Slide ${index + 1}`}
-                  className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px] object-cover rounded-lg filter brightness-40"
+                  className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px] object-cover rounded-lg filter brightness-60"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <h2 className="text-white text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center px-4">

@@ -11,6 +11,7 @@ import PrivateRoutes from "../Provider/PrivateRoutes";
 import Loading from "../pages/Loading";
 import ForgetPassword from "../pages/ForgetPassword";
 import NotFound from "../pages/NotFound";
+import AddListing from "../pages/AddListing";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: "/forget-password",
     element: <ForgetPassword></ForgetPassword>,
+  },
+  {
+    path: "/add-listing",
+    element: <AddListing></AddListing>,
   },
   {
     path: "/*",
