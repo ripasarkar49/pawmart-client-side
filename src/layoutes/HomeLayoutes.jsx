@@ -19,7 +19,6 @@ const HomeLayoutes = () => {
         <section>
           <CategoryCards></CategoryCards>
         </section>
-        
       </header>
       <main>
         <Outlet></Outlet>
