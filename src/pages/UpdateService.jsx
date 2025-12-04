@@ -1,33 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../Provider/AuthProvider";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
 
-const AddListing = () => {
+const UpdateService = () => {
   const { user } = useContext(AuthContext);
-  const [date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const today = new Date().toISOString().split("T")[0];
+  const { id } = useParams();
+  const [service, setService] = useState();
+  const [category, setCategory] = useState();
+  const [price, setPrice] = useState(0);
+  const navigation = useNavigate();
+  useEffect(() => {
+    axios.get(`http://localhost:3000/services/${id}`).then((res) => {
+      setService(res.data);
+      setCategory(res.data.category);
+      if (res.data.category === "Pets") {
+        setPrice(0);
+      } else {
+        setPrice(res.data.price);
+      }
+    });
+  }, [id]);
+  console.log(service);
 
-  const handleCategoryChange = (e) => {
-    const selected = e.target.value;
-    setCategory(selected);
-
-    if (selected === "Pets") {
-      setPrice(0);
-    } else {
-      setPrice("");
-    }
-  };
-
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -49,34 +48,32 @@ const AddListing = () => {
       date,
       email,
     };
-
     console.log(formData);
 
     axios
-      .post("http://localhost:3000/services", formData)
+      .put(`http://localhost:3000/update/${id}`, formData)
       .then((res) => {
-        toast.success("Listing added successfully!");
-        form.reset();
-        setCategory("");
-        setPrice("");
-        setDate("");
+        // console.log(res.data);
+        toast.success("Listing Updated successfully!");
+        setTimeout(() => {
+          navigation("/my-listings");
+        }, 1000);
       })
-      .catch(() => {
-        toast.error("Failed to add listing");
+      .catch((err) => {
+        toast.error("Failed to Updated listing");
       });
   };
 
   return (
     <div>
-          <ToastContainer />
+      <ToastContainer />
       <Navbar />
       <div className="max-w-2xl mx-auto my-10 bg-white shadow-lg rounded-xl p-6">
         <h2 className="text-3xl text-blue-950 font-bold mb-5 text-center">
-          Add New Listings (adoption or product)
+          Update Listings (adoption or product)
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-        
+        <form onSubmit={handleUpdate} className="space-y-4">
           {/* Product/Pet Name */}
           <div>
             <label className="block font-semibold mb-1">
@@ -84,6 +81,7 @@ const AddListing = () => {
             </label>
             <input
               type="text"
+              defaultValue={service?.name}
               name="name"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter name"
@@ -97,7 +95,7 @@ const AddListing = () => {
               name="category"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
               value={category}
-              onChange={handleCategoryChange}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Select Category</option>
               <option value="Pets">Pets</option>
@@ -113,9 +111,9 @@ const AddListing = () => {
             <input
               type="number"
               name="price"
+              value={category === "Pets" ? 0 : price}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-              value={price}
-              onChange={handlePriceChange}
+              onChange={(e) => setPrice(e.target.value)}
               placeholder="0"
               disabled={category === "Pets"}
             />
@@ -126,6 +124,7 @@ const AddListing = () => {
             <label className="block font-semibold mb-1">Location</label>
             <input
               type="text"
+              defaultValue={service?.location}
               name="location"
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Enter location"
@@ -137,8 +136,9 @@ const AddListing = () => {
             <label className="block font-semibold mb-1">Description</label>
             <textarea
               name="description"
+              defaultValue={service?.description}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-              rows="3"
+              rows="2"
               placeholder="Write details..."
             ></textarea>
           </div>
@@ -149,6 +149,7 @@ const AddListing = () => {
             <input
               type="url"
               name="image"
+              defaultValue={service?.image}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="Image URL"
             />
@@ -160,10 +161,11 @@ const AddListing = () => {
             <input
               type="date"
               name="date"
+              defaultValue={service?.date}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-              value={date}
-              min={today}
-              onChange={(e) => setDate(e.target.value)}
+
+              //   min={today}
+              //   onChange={(e) => setDate(e.target.value)}
             />
           </div>
 
@@ -184,9 +186,8 @@ const AddListing = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 duration-200"
           >
-            Submit
+            Update
           </button>
-       
         </form>
       </div>
       <Footer />
@@ -194,4 +195,4 @@ const AddListing = () => {
   );
 };
 
-export default AddListing;
+export default UpdateService;

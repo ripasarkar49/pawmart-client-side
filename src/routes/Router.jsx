@@ -12,6 +12,8 @@ import AddListing from "../pages/AddListing";
 import PetSuppliesDataAll from "../components/PetSuppliesDataAll";
 import SeeDetails from "../pages/SeeDetails";
 import FilteredCategoryPage from "../pages/FilteredCategoryPage";
+import MylListings from "../pages/MylListings";
+import UpdateService from "../pages/UpdateService";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +67,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-listing",
-    element: <AddListing></AddListing>,
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <AddListing></AddListing>
+      </PrivateRoutes>
+    ),
+  },
+  {
+    path: "/my-listings",
+    element: <MylListings></MylListings>,
+  },
+  {
+    path: "/update-service/:id",
+    element: <UpdateService></UpdateService>,
   },
   {
     path: "/*",

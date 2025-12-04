@@ -12,7 +12,7 @@ const FilteredCategoryPage = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched Products:", data);
-        setProducts(data);          // <-- MUST MATCH `products`
+        setProducts(data);        
       })
       .catch((err) => console.error(err));
   }, [categoryName]);
