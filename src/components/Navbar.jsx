@@ -121,6 +121,7 @@ const Navbar = () => {
               <img
                 src={user?.photoURL || userIcon}
                 alt="user"
+                onError={(e) => (e.target.src = userIcon)}
                 title={user?.displayName}
                 className="w-12 h-12 rounded-full cursor-pointer"
               />

@@ -1,13 +1,26 @@
-import React, { Suspense, use } from "react";
+import React, { Suspense, use, useEffect, useState } from "react";
 import CardDesign from "./CardDesign";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-const petPromise = fetch("http://localhost:3000/services").then((res) =>
-  res.json()
-);
+
 
 const PetSuppliesDataAll = () => {
-  const petsData = use(petPromise);
+  const [petsData, setPetsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPets = () => {
+    fetch("http://localhost:3000/services")
+      .then(res => res.json())
+      .then(data => {
+        setPetsData(data);
+        setLoading(false);
+      })
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchPets();
+  }, []);
   return (
     <div>
       <Navbar></Navbar>

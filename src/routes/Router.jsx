@@ -11,6 +11,7 @@ import NotFound from "../pages/NotFound";
 import AddListing from "../pages/AddListing";
 import PetSuppliesDataAll from "../components/PetSuppliesDataAll";
 import SeeDetails from "../pages/SeeDetails";
+import FilteredCategoryPage from "../pages/FilteredCategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "/forget-password",
     element: <ForgetPassword></ForgetPassword>,
+  },
+  {
+    path: "/category-filtered-product/:categoryName",
+    element: <FilteredCategoryPage></FilteredCategoryPage>,
   },
   {
     path: "/add-listing",

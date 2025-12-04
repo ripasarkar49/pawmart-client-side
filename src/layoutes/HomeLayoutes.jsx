@@ -3,8 +3,8 @@ import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import Footer from "../components/Footer";
-import Home from "../pages/Home";
-import BannerHero from "../components/BannerHero";
+
+import CategoryCards from "../components/CategoryCards";
 
 const HomeLayoutes = () => {
   return (
@@ -16,9 +16,10 @@ const HomeLayoutes = () => {
         <section>
           <Slider></Slider>
         </section>
-        <section className="w-11/12 mx-auto ">
-          <BannerHero></BannerHero>
+        <section>
+          <CategoryCards></CategoryCards>
         </section>
+        
       </header>
       <main>
         <Outlet></Outlet>

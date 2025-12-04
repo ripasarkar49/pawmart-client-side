@@ -5,7 +5,6 @@ const PetAndSupplies = () => {
   const [petsData, setPetsData] = useState([]);
 
   useEffect(() => {
-  
     fetch("http://localhost:3000/services/latest")
       .then((res) => res.json())
       .then((data) => setPetsData(data))
@@ -14,9 +13,13 @@ const PetAndSupplies = () => {
 
   return (
     <div>
-      <h2 className="font-bold text-3xl my-3 w-11/12 mx-auto">
-        Pets & Supplies
-      </h2>
+      <div className="w-11/12 mx-auto">
+        <h1 className="text-3xl font-bold text-center">Recent Listings</h1>
+        <p className="text-center">
+          "Check out the latest pets and products added to our store. Don’t miss
+          out on these new arrivals!"
+        </p>
+      </div>
       <CardDesign pets={petsData} />
     </div>
   );
