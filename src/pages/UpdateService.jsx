@@ -93,7 +93,8 @@ const UpdateService = () => {
             <label className="block font-semibold mb-1">Category</label>
             <select
               name="category"
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+              className="w-full border rounded-lg px-3 py-2 sm:w-60 
+    text-sm sm:text-base focus:outline-none focus:ring focus:ring-blue-300"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
