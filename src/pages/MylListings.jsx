@@ -3,6 +3,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const MylListings = () => {
   const [myServices, setMyServices] = useState([]);
@@ -13,9 +15,22 @@ const MylListings = () => {
       .then((data) => setMyServices(data))
       .catch((err) => console.log(err));
   }, [user?.email]);
-
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:3000/delete/${id}`)
+      .then((res) => {
+        // console.log(res.data);
+        const filterData = myServices.filter(service=>service._id != id);
+        setMyServices(filterData)
+        toast.success("Listing Delete successfully!");
+      })
+      .catch((err) => {
+        toast.error("Failed to delete listing");
+      });
+  };
   return (
     <div>
+         <ToastContainer />
       <Navbar></Navbar>
       <div className="overflow-x-auto w-11/12 mx-auto py-7">
         <table className="table">
@@ -58,8 +73,18 @@ const MylListings = () => {
                 </td>
                 <td>${service?.price}</td>
                 <td className="flex gap-3">
-                  <button className="btn btn-error btn-xs">Delete</button>
-                  <Link to={`/update-service/${service?._id}`} className="btn btn-primary btn-xs">Update</Link>
+                  <button
+                    onClick={() => handleDelete(service?._id)}
+                    className="btn btn-error btn-xs"
+                  >
+                    Delete
+                  </button>
+                  <Link
+                    to={`/update-service/${service?._id}`}
+                    className="btn btn-primary btn-xs"
+                  >
+                    Update
+                  </Link>
                 </td>
               </tr>
             ))}
