@@ -14,6 +14,7 @@ import SeeDetails from "../pages/SeeDetails";
 import FilteredCategoryPage from "../pages/FilteredCategoryPage";
 import MylListings from "../pages/MylListings";
 import UpdateService from "../pages/UpdateService";
+import MyOrders from "../pages/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,15 @@ const router = createBrowserRouter([
       <PrivateRoutes>
         {" "}
         <AddListing></AddListing>
+      </PrivateRoutes>
+    ),
+  },
+  {
+    path: "/my-orders",
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <MyOrders></MyOrders>
       </PrivateRoutes>
     ),
   },
