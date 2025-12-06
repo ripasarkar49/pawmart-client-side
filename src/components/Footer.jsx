@@ -15,7 +15,7 @@ const Footer = () => {
       >
         <div className="">
           <div className="flex gap-3 items-center text-center">
-            <img src={logo} className="w-8 h-8" />
+            <img src={logo} className="w-8 h-8 bg-white rounded" />
             <Link
               to="/"
               className="text-3xl font-extrabold bg-linear-to-r from-pink-500 to-blue-900 text-transparent bg-clip-text"

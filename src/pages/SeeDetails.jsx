@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navigate, useLoaderData, useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,11 +6,17 @@ import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
-const SeeDetails = ({children}) => {
+const SeeDetails = ({ children }) => {
   const data = useLoaderData();
   const { user } = useContext(AuthContext);
   const location = useLocation();
-   
+  const [isDark, setIsDark] = useState(false);
+
+  // Detect theme
+  useEffect(() => {
+    const theme = document.documentElement.getAttribute("data-theme");
+    setIsDark(theme === "dark");
+  }, []);
 
   const handleOrder = (e) => {
     e.preventDefault();
@@ -49,16 +55,14 @@ const SeeDetails = ({children}) => {
         toast.error("Order Failed");
       });
 
+    if (!user) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
 
-      if (!user) {
-   
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return children; 
+    return children;
   };
   return (
-    <div>
+    <div >
       <ToastContainer />
       <Navbar></Navbar>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row gap-5 my-10">
