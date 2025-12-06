@@ -15,6 +15,11 @@ import FilteredCategoryPage from "../pages/FilteredCategoryPage";
 import MylListings from "../pages/MylListings";
 import UpdateService from "../pages/UpdateService";
 import MyOrders from "../pages/MyOrders";
+import Slider from "../components/Slider";
+import CategoryCards from "../components/CategoryCards";
+import PetAndSupplies from "../components/PetAndSupplies";
+import WhyAdopt from "../components/WhyAdopt";
+import OurHeroes from "../components/OurHeroes";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +29,26 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/slider",
+        element: <Slider></Slider>,
+      },
+      {
+        path: "/categoryCards",
+        element: <CategoryCards></CategoryCards>,
+      },
+      {
+        path: "/petAndSupplies",
+        element: <PetAndSupplies></PetAndSupplies>,
+      },
+      {
+        path: "/whyAdopt",
+        element: <WhyAdopt></WhyAdopt>,
+      },
+      {
+        path: "/ourHeroes",
+        element: <OurHeroes></OurHeroes>,
       },
     ],
   },
@@ -86,11 +111,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/my-listings",
-    element: <MylListings></MylListings>,
+    element: <PrivateRoutes><MylListings></MylListings></PrivateRoutes>,
   },
   {
     path: "/update-service/:id",
-    element: <UpdateService></UpdateService>,
+    element: <PrivateRoutes><UpdateService></UpdateService></PrivateRoutes>,
   },
   {
     path: "/*",

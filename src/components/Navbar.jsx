@@ -4,6 +4,8 @@ import logo from "../assets/paw_logo.png";
 import userIcon from "../assets/user.png";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -122,8 +124,16 @@ const Navbar = () => {
                 src={user?.photoURL || userIcon}
                 alt="user"
                 onError={(e) => (e.target.src = userIcon)}
-                title={user?.displayName}
+                data-tooltip-id="user-tooltip"
+                data-tooltip-content={`Name: ${
+                  user.displayName || "N/A"
+                }\nEmail: ${user.email}`}
                 className="w-12 h-12 rounded-full cursor-pointer"
+              />
+              <Tooltip
+                id="user-tooltip"
+                place="bottom"
+                style={{ zIndex: 9999 }}
               />
               <button
                 onClick={handleLogout}

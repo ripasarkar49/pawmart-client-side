@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
+  const {user}=useContext(AuthContext);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/orders`)
+      .get(`http://localhost:3000/my-orders?email=${user.email}`)
       .then((res) => {
         setMyOrders(res.data);
       })

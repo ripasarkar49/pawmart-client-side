@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
-import { useLoaderData } from "react-router";
+import { Navigate, useLoaderData, useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
-const SeeDetails = () => {
+const SeeDetails = ({children}) => {
   const data = useLoaderData();
   const { user } = useContext(AuthContext);
+  const location = useLocation();
+   
 
   const handleOrder = (e) => {
     e.preventDefault();
@@ -16,7 +19,7 @@ const SeeDetails = () => {
     const buyerEmail = form.buyerEmail.value;
     const productId = form.productId.value;
     const name = form.name.value;
-    const quantity = form.quantity.value;
+    const quantity = data.category === "Pets" ? 1 : form.quantity.value;
     const price = form.price.value;
     const address = form.address.value;
     const phone = form.phone.value;
@@ -36,18 +39,27 @@ const SeeDetails = () => {
       date: new Date(),
     };
 
-    axios.post(`http://localhost:3000/orders`,formData)
-    .then(res=>{
-      console.log(res);
-      
-    })
-    .catch(err=>{
-      console.log(err);
-      
-    })
+    axios
+      .post(`http://localhost:3000/orders`, formData)
+      .then((res) => {
+        toast.success("Order Confirm!");
+        document.getElementById("my_modal_3").close();
+      })
+      .catch((err) => {
+        toast.error("Order Failed");
+      });
+
+
+      if (!user) {
+   
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children; 
   };
   return (
     <div>
+      <ToastContainer />
       <Navbar></Navbar>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row gap-5 my-10">
         <div className="md:w-1/3 flex justify-center items-center bg-gray-100 p-4">
@@ -156,9 +168,10 @@ const SeeDetails = () => {
                     <input
                       type="number"
                       name="quantity"
-                      // min="1"
-                      // defaultValue={listing?.category === "Pets" ? 1 : 1}
-                      // disabled={listing?.category === "Pets"}
+                      min="1"
+                      value={data?.category === "Pets" ? 1 : undefined}
+                      defaultValue={data?.category === "Pets" ? 1 : ""}
+                      disabled={data?.category === "Pets"}
                       className="w-full border px-3 py-2 rounded"
                     />
                   </div>

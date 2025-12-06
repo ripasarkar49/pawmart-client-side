@@ -1,20 +1,31 @@
 import React from "react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 const heroes = [
   {
     name: "Anupoma",
     role: "Pet Care Volunteer",
-    image: "https://i.ibb.co.com/jv3MtJ2y/IMG-20251009-WA0071.jpg",
+    image: "https://i.ibb.co/jv3MtJ2y/IMG-20251009-WA0071.jpg",
+    Add: "Dhaka",
+    PhoneNo: "01315572442",
+    email: "ripasarkar49@gmail.com",
   },
   {
     name: "Rimjhim",
     role: "Adopter",
-    image: "https://i.ibb.co.com/H1MvsLf/ww2.png",
+    image: "https://i.ibb.co/H1MvsLf/ww2.png",
+    Add: "Dhaka",
+    PhoneNo: "01315572442",
+    email: "ripasarkar49@gmail.com",
   },
   {
     name: "Anika",
     role: "Foster Caregiver",
-    image: "https://i.ibb.co.com/bj63pkzw/ww.jpg",
+    image: "https://i.ibb.co/bj63pkzw/ww.jpg",
+    Add: "Dhaka",
+    PhoneNo: "01315572442",
+    email: "ripasarkar49@gmail.com",
   },
 ];
 
@@ -28,7 +39,18 @@ const OurHeroes = () => {
             {heroes.map((hero, idx) => (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-xl shadow hover:scale-105 transition"
+                className="bg-white p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+                data-tooltip-id={`hero-tooltip-${idx}`}
+                data-tooltip-html={`
+                  <div class="p-2 text-left">
+                    <img src="${hero.image}" class="w-24 h-24 rounded-full mb-2 mx-auto"/>
+                    <h3 class="font-bold text-lg mb-1">${hero.name}</h3>
+                    <p class="text-gray-600 mb-1">${hero.role}</p>
+                    <p class="text-gray-600 mb-1"><strong>Location:</strong> ${hero.Add}</p>
+                    <p class="text-gray-600 mb-1"><strong>Phone:</strong> ${hero.PhoneNo}</p>
+                    <p class="text-gray-600"><strong>Email:</strong> ${hero.email}</p>
+                  </div>
+                `}
               >
                 <img
                   src={hero.image}
@@ -40,6 +62,17 @@ const OurHeroes = () => {
               </div>
             ))}
           </div>
+
+          {/* Tooltip instances */}
+          {heroes.map((_, idx) => (
+            <Tooltip
+              key={idx}
+              id={`hero-tooltip-${idx}`}
+              place="top"
+              effect="white"
+              className="max-w-xs"
+            />
+          ))}
         </div>
       </section>
     </div>

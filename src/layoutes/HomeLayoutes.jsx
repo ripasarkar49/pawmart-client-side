@@ -1,10 +1,10 @@
 import React from "react";
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
-import Slider from "../components/Slider";
+
 import Footer from "../components/Footer";
 
-import CategoryCards from "../components/CategoryCards";
+
 
 const HomeLayoutes = () => {
   return (
@@ -12,12 +12,6 @@ const HomeLayoutes = () => {
       <header>
         <section>
           <Navbar></Navbar>
-        </section>
-        <section>
-          <Slider></Slider>
-        </section>
-        <section>
-          <CategoryCards></CategoryCards>
         </section>
       </header>
       <main>
