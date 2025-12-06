@@ -25,13 +25,15 @@ const UpdateService = () => {
 
   // Load service data
   useEffect(() => {
-    axios.get(`http://localhost:3000/services/${id}`).then((res) => {
-      const data = res.data;
-      setService(data);
-      setCategory(data.category);
-      setPrice(data.category === "Pets" ? 0 : data.price);
-      setDate(data.date);
-    });
+    axios
+      .get(`https://pawmart-server-side.vercel.app/services/${id}`)
+      .then((res) => {
+        const data = res.data;
+        setService(data);
+        setCategory(data.category);
+        setPrice(data.category === "Pets" ? 0 : data.price);
+        setDate(data.date);
+      });
   }, [id]);
 
   const handleUpdate = (e) => {
@@ -50,7 +52,7 @@ const UpdateService = () => {
     };
 
     axios
-      .put(`http://localhost:3000/update/${id}`, updatedData)
+      .put(`https://pawmart-server-side.vercel.app/update/${id}`, updatedData)
       .then(() => {
         toast.success("Listing updated successfully!");
         setTimeout(() => navigation("/my-listings"), 800);
@@ -60,9 +62,7 @@ const UpdateService = () => {
 
   if (!service) {
     return (
-      <p className="text-center text-xl py-10 dark:text-white">
-        Loading...
-      </p>
+      <p className="text-center text-xl py-10 dark:text-white">Loading...</p>
     );
   }
 
@@ -85,10 +85,11 @@ const UpdateService = () => {
         </h2>
 
         <form onSubmit={handleUpdate} className="space-y-4">
-
           {/* Name */}
           <div>
-            <label className="block font-semibold mb-1">Product / Pet Name</label>
+            <label className="block font-semibold mb-1">
+              Product / Pet Name
+            </label>
             <input
               type="text"
               name="name"

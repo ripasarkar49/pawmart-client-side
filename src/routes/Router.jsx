@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     ),
     loader: ({ params }) => {
       const id = params._id;
-      return fetch(`http://localhost:3000/services/${id}`);
+      return fetch(`https://pawmart-server-side.vercel.app/services/${id}`);
     },
     hydrateFallbackElement: <Loading></Loading>,
   },
@@ -111,11 +111,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/my-listings",
-    element: <PrivateRoutes><MylListings></MylListings></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <MylListings></MylListings>
+      </PrivateRoutes>
+    ),
   },
   {
     path: "/update-service/:id",
-    element: <PrivateRoutes><UpdateService></UpdateService></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <UpdateService></UpdateService>
+      </PrivateRoutes>
+    ),
   },
   {
     path: "/*",

@@ -10,14 +10,16 @@ const MylListings = () => {
   const [myServices, setMyServices] = useState([]);
   const { user } = useContext(AuthContext);
   useEffect(() => {
-    fetch(`http://localhost:3000/my-listing?email=${user?.email}`)
+    fetch(
+      `https://pawmart-server-side.vercel.app/my-listing?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setMyServices(data))
       .catch((err) => console.log(err));
   }, [user?.email]);
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:3000/delete/${id}`)
+      .delete(`https://pawmart-server-side.vercel.app/delete/${id}`)
       .then((res) => {
         // console.log(res.data);
         const filterData = myServices.filter((service) => service._id != id);

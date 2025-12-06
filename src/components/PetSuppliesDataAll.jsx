@@ -11,7 +11,9 @@ const PetSuppliesDataAll = () => {
 
   useEffect(() => {
     const fetchPets = () => {
-      fetch(`http://localhost:3000/services?category=${category}`)
+      fetch(
+        `https://pawmart-server-side.vercel.app/services?category=${category}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setPetsData(data);

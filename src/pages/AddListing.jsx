@@ -50,7 +50,7 @@ const AddListing = () => {
     };
 
     axios
-      .post("http://localhost:3000/services", formData)
+      .post("https://pawmart-server-side.vercel.app/services", formData)
       .then(() => {
         toast.success("Listing added successfully!");
         form.reset();
@@ -82,7 +82,9 @@ const AddListing = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Product/Pet Name */}
           <div>
-            <label className="block font-semibold mb-1">Product / Pet Name</label>
+            <label className="block font-semibold mb-1">
+              Product / Pet Name
+            </label>
             <input
               type="text"
               name="name"

@@ -46,7 +46,7 @@ const SeeDetails = ({ children }) => {
     };
 
     axios
-      .post(`http://localhost:3000/orders`, formData)
+      .post(`https://pawmart-server-side.vercel.app/orders`, formData)
       .then((res) => {
         toast.success("Order Confirm!");
         document.getElementById("my_modal_3").close();

@@ -13,13 +13,14 @@ const MyOrders = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/my-orders?email=${user.email}`)
+        .get(
+          `https://pawmart-server-side.vercel.app/my-orders?email=${user.email}`
+        )
         .then((res) => setMyOrders(res.data))
         .catch((err) => console.log(err));
     }
   }, [user]);
 
-  
   const downloadReport = () => {
     if (!myOrders.length) return;
 

@@ -6,7 +6,7 @@ const PetAndSupplies = () => {
   const [petsData, setPetsData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/services/latest")
+    fetch("https://pawmart-server-side.vercel.app/services/latest")
       .then((res) => res.json())
       .then((data) => {
         setPetsData(data);
