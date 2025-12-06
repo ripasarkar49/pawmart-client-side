@@ -62,10 +62,10 @@ const SeeDetails = ({ children }) => {
     return children;
   };
   return (
-    <div>
+    <div className={`${isDark ? "dark" : ""}`}>
       <ToastContainer />
       <Navbar></Navbar>
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row gap-5 my-10">
+      <div className="max-w-4xl mx-auto shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row gap-5 my-10">
         <div className="md:w-1/3 flex justify-center items-center bg-gray-100 p-4">
           <img
             src={data.image}
@@ -112,7 +112,7 @@ const SeeDetails = ({ children }) => {
                   ✕
                 </button>
               </form>
-              <div className="max-w-xl mx-auto my-10 p-6 shadow-lg rounded-xl bg-white">
+              <div className="max-w-xl mx-auto my-10 p-6 shadow-lg rounded-xl ">
                 <h2 className="text-2xl font-bold text-center mb-4 text-blue-900">
                   Order Information
                 </h2>
@@ -126,7 +126,7 @@ const SeeDetails = ({ children }) => {
                       name="buyerName"
                       value={user?.displayName}
                       readOnly
-                      className="w-full border px-3 py-2 rounded bg-gray-100"
+                      className="w-full border px-3 py-2 rounded "
                     />
                   </div>
 
@@ -138,7 +138,7 @@ const SeeDetails = ({ children }) => {
                       name="buyerEmail"
                       value={user?.email}
                       readOnly
-                      className="w-full border px-3 py-2 rounded bg-gray-100"
+                      className="w-full border px-3 py-2 rounded "
                     />
                   </div>
 
@@ -150,7 +150,7 @@ const SeeDetails = ({ children }) => {
                       name="productId"
                       value={data?._id}
                       readOnly
-                      className="w-full border px-3 py-2 rounded bg-gray-100"
+                      className="w-full border px-3 py-2 rounded"
                     />
                   </div>
 
@@ -162,7 +162,7 @@ const SeeDetails = ({ children }) => {
                       name="name"
                       value={data?.name}
                       readOnly
-                      className="w-full border px-3 py-2 rounded bg-gray-100"
+                      className="w-full border px-3 py-2 rounded "
                     />
                   </div>
 
@@ -188,7 +188,7 @@ const SeeDetails = ({ children }) => {
                       name="price"
                       value={data?.price}
                       readOnly
-                      className="w-full border px-3 py-2 rounded bg-gray-100"
+                      className="w-full border px-3 py-2 rounded "
                     />
                   </div>
 
