@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router";
+import Reveal from "./Reveal";
 
 const CardDesign = ({ pets }) => {
   return (
     <div className="grid w-11/12 mx-auto py-7 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {pets.map((pet) => (
-        <div
+        <Reveal
           key={pet._id}
           className="card bg-base-100 border shadow-sm hover:scale-105 transition"
         >
@@ -31,7 +32,7 @@ const CardDesign = ({ pets }) => {
               </Link>
             </div>
           </div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );

@@ -63,7 +63,6 @@ const OurHeroes = () => {
             ))}
           </div>
 
-          {/* Tooltip instances */}
           {heroes.map((_, idx) => (
             <Tooltip
               key={idx}

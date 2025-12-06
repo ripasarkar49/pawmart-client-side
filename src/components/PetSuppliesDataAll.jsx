@@ -31,7 +31,7 @@ const PetSuppliesDataAll = () => {
     text-sm sm:text-base focus:outline-none focus:ring focus:ring-blue-300"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            defaultValue="Select Category"
+            // defaultValue="Select Category"
           >
             <option value="">Select Category</option>
             <option value="Pets">Pets</option>

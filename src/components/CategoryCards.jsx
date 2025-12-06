@@ -4,6 +4,7 @@ import petsImg from "../assets/pets.jpg";
 import foodImg from "../assets/food.jpg";
 import accessoriesImg from "../assets/accessories.jpg";
 import careImg from "../assets/care.jpg";
+import Reveal from "./Reveal";
 
 const CategoryCards = () => {
   const navigate = useNavigate();
@@ -25,25 +26,28 @@ const CategoryCards = () => {
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6  pt-6 ">
         {categories.map((cat, i) => (
-          <div
-            key={i}
-            onClick={() =>
+          <Reveal key={i}>
+            <div
+            onClick=
+            {() =>
               navigate(
                 `/category-filtered-product/${encodeURIComponent(cat.name)}`
               )
             }
-            className="relative cursor-pointer rounded-lg shadow overflow-hidden group h-48"
-            style={{
+            className="relative cursor-pointer rounded-lg shadow overflow-hidden
+            group h-48" style=
+            {{
               backgroundImage: `url(${cat.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-          >
+            >
             <div className="absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-white transition group-hover:bg-black/50">
               <div className="text-5xl">{cat.emoji}</div>
               <h3 className="text-xl font-bold mt-2">{cat.name}</h3>
             </div>
-          </div>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>
