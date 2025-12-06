@@ -62,7 +62,7 @@ const SeeDetails = ({ children }) => {
     return children;
   };
   return (
-    <div >
+    <div>
       <ToastContainer />
       <Navbar></Navbar>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row gap-5 my-10">
@@ -173,7 +173,7 @@ const SeeDetails = ({ children }) => {
                       type="number"
                       name="quantity"
                       min="1"
-                      value={data?.category === "Pets" ? 1 : undefined}
+                      // value={data?.category === "Pets" ? 1 : undefined}
                       defaultValue={data?.category === "Pets" ? 1 : ""}
                       disabled={data?.category === "Pets"}
                       className="w-full border px-3 py-2 rounded"

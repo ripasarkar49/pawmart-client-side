@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import CardDesign from "./CardDesign";
+import Loading from "../pages/Loading";
 
 const PetAndSupplies = () => {
   const [petsData, setPetsData] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetch("http://localhost:3000/services/latest")
       .then((res) => res.json())
-      .then((data) => setPetsData(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        setPetsData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   }, []);
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <div className="w-11/12 mx-auto">

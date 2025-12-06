@@ -20,8 +20,8 @@ const MylListings = () => {
       .delete(`http://localhost:3000/delete/${id}`)
       .then((res) => {
         // console.log(res.data);
-        const filterData = myServices.filter(service=>service._id != id);
-        setMyServices(filterData)
+        const filterData = myServices.filter((service) => service._id != id);
+        setMyServices(filterData);
         toast.success("Listing Delete successfully!");
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ const MylListings = () => {
   };
   return (
     <div>
-         <ToastContainer />
+      <ToastContainer />
       <Navbar></Navbar>
       <div className="overflow-x-auto w-11/12 mx-auto py-7">
         <table className="table">
@@ -45,7 +45,7 @@ const MylListings = () => {
           </thead>
           <tbody>
             {myServices?.map((service) => (
-              <tr>
+              <tr key={service._id}>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">

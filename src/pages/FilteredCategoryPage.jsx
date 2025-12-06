@@ -11,7 +11,7 @@ const FilteredCategoryPage = () => {
     fetch(`http://localhost:3000/services?category=${categoryName}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched Products:", data);
+        // console.log("Fetched Products:", data);
         setProducts(data);        
       })
       .catch((err) => console.error(err));

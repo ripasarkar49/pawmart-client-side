@@ -2,6 +2,7 @@ import React, { Suspense, use, useEffect, useState } from "react";
 import CardDesign from "./CardDesign";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Loading from "../pages/Loading";
 
 const PetSuppliesDataAll = () => {
   const [petsData, setPetsData] = useState([]);
@@ -20,6 +21,9 @@ const PetSuppliesDataAll = () => {
     };
     fetchPets();
   }, [category]);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <Navbar></Navbar>

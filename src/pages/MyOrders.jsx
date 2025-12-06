@@ -3,38 +3,89 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { AuthContext } from "../Provider/AuthProvider";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
-  const {user}=useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/my-orders?email=${user.email}`)
-      .then((res) => {
-        setMyOrders(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (user?.email) {
+      axios
+        .get(`http://localhost:3000/my-orders?email=${user.email}`)
+        .then((res) => setMyOrders(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  
+  const downloadReport = () => {
+    if (!myOrders.length) return;
+
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text("My Orders Report", 14, 22);
+
+    const tableColumn = [
+      "SL",
+      "Product",
+      "Buyer",
+      "Price",
+      "Qty",
+      "Address",
+      "Date",
+      "Phone",
+    ];
+
+    const tableRows = myOrders.map((order, index) => [
+      index + 1,
+      order.name,
+      order.buyerName,
+      `$${order.price}`,
+      order.quantity,
+      order.address,
+      new Date(order?.date).toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      }),
+      order.phone,
+    ]);
+
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 30,
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [41, 128, 185] },
+    });
+
+    doc.save("my-orders-report.pdf");
+  };
+
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar />
+
       <div className="p-4 w-11/12 mx-auto">
         {/* Download Button */}
         <button
-          //   onClick={downloadReport}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md mb-4"
+          onClick={downloadReport}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md mb-4 hover:bg-blue-700"
         >
           Download Report
         </button>
 
-        {/* Responsive Table */}
+        {/* Orders Table */}
         <div className="overflow-x-auto shadow rounded-lg">
           <table className="min-w-full text-sm text-left border">
             <thead className="bg-gray-200 text-gray-700">
               <tr>
-                <th className="px-4 py-2">SL </th>
+                <th className="px-4 py-2">SL</th>
                 <th className="px-4 py-2">Product</th>
                 <th className="px-4 py-2">Buyer</th>
                 <th className="px-4 py-2">Price</th>
@@ -71,7 +122,8 @@ const MyOrders = () => {
           </table>
         </div>
       </div>
-      <Footer></Footer>
+
+      <Footer />
     </div>
   );
 };
