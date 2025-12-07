@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -41,6 +41,11 @@ const FilteredCategoryPage = () => {
               <h2 className="text-xl font-bold mt-2">{p.name}</h2>
               <p className="text-gray-600">Category: {p.category}</p>
               <p className="font-semibold mt-1">${p.price}</p>
+              <div className="card-actions justify-end">
+              <Link to={`/see-details/${p._id}`} className="btn btn-outline">
+                See Details
+              </Link>
+            </div>
             </div>
           ))}
         </div>
