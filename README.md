@@ -7,6 +7,7 @@ Pawmart – Pet Care & Product Marketplace
 Pawmart is a modern web application built using **React + Firebase + MongoDB**, designed for pet lovers. Users can browse pets, pet care products, and accessories, view detailed listings, register/login, and manage their own listings. The project emphasizes user experience with authentication, protected routes, server-side data management, and a mobile-responsive design.
 
 ## Live Demo:
+https://pawmart-client-side.netlify.app/
 
 ## Purpose:
 
