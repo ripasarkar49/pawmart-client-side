@@ -21,7 +21,7 @@ const MylListings = () => {
     axios
       .delete(`https://pawmart-server-side.vercel.app/delete/${id}`)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         const filterData = myServices.filter((service) => service._id != id);
         setMyServices(filterData);
         toast.success("Listing Delete successfully!");

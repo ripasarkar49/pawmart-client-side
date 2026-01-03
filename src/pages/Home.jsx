@@ -1,5 +1,4 @@
 import React from "react";
-
 import PetAndSupplies from "../components/PetAndSupplies";
 import WhyAdopt from "../components/WhyAdopt";
 import OurHeroes from "../components/OurHeroes";
