@@ -4,10 +4,12 @@ import petsImg from "../assets/pets.jpg";
 import foodImg from "../assets/food.jpg";
 import accessoriesImg from "../assets/accessories.jpg";
 import careImg from "../assets/care.jpg";
-import Reveal from "./Reveal";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
 const CategoryCards = () => {
   const navigate = useNavigate();
+  const headerRef = useScrollAnimation("fade-up");
+  const gridRef = useScrollAnimation("fade-up", 0.2);
 
   const categories = [
     { name: "Pets", emoji: "🐶", image: petsImg },
@@ -17,37 +19,45 @@ const CategoryCards = () => {
   ];
 
   return (
-    <div className="w-11/12 mx-auto py-7">
-      <h1 className="text-3xl font-bold text-center">Shop by Category</h1>
-      <p className="text-center">
-        Find your favorite pets, nutritious food, fun accessories, and essential
-        care products. Click a category to explore all available listings
-        instantly!"
-      </p>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6  pt-6 ">
+    <div className="w-11/12 mx-auto py-16">
+      <div ref={headerRef} className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--color-primary)] mb-4">
+          Shop by Category
+        </h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Find your favorite pets, nutritious food, fun accessories, and essential
+          care products. Click a category to explore all available listings
+          instantly!
+        </p>
+      </div>
+
+      <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {categories.map((cat, i) => (
-          <Reveal key={i}>
-            <div
-            onClick=
-            {() =>
+          <div
+            key={i}
+            onClick={() =>
               navigate(
                 `/category-filtered-product/${encodeURIComponent(cat.name)}`
               )
             }
-            className="relative cursor-pointer rounded-lg shadow overflow-hidden
-            group h-48" style=
-            {{
-              backgroundImage: `url(${cat.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            >
-            <div className="absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-white transition group-hover:bg-black/50">
-              <div className="text-5xl">{cat.emoji}</div>
-              <h3 className="text-xl font-bold mt-2">{cat.name}</h3>
+            className="relative cursor-pointer rounded-2xl shadow-lg overflow-hidden group h-64 border border-base-200 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+          >
+            {/* Background Image with Zoom Effect */}
+            <div 
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                style={{ backgroundImage: `url(${cat.image})` }}
+            ></div>
+            
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end items-center p-6 text-white transition-opacity duration-300">
+               <div className="transform transition-transform duration-300 group-hover:scale-125 mb-2 text-6xl drop-shadow-md">
+                 {cat.emoji}
+               </div>
+               <h3 className="text-2xl font-bold tracking-wide border-b-2 border-transparent group-hover:border-[var(--color-secondary)] pb-1 transition-all">
+                 {cat.name}
+               </h3>
             </div>
-            </div>
-          </Reveal>
+          </div>
         ))}
       </div>
     </div>

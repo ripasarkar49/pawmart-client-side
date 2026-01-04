@@ -20,6 +20,7 @@ import CategoryCards from "../components/CategoryCards";
 import PetAndSupplies from "../components/PetAndSupplies";
 import WhyAdopt from "../components/WhyAdopt";
 import OurHeroes from "../components/OurHeroes";
+import Contact from "../components/Contact";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/ourHeroes",
         element: <OurHeroes></OurHeroes>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
       },
     ],
   },

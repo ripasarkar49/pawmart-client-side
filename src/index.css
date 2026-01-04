@@ -3,9 +3,72 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --color-primary: #004d40;
+  --color-primary-light: #00695c;
+  --color-secondary: #ffa000;
+  --color-accent: #ff6f00;
+
+  /* Base colors - Light Mode Defaults */
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f5f5;
+  --color-base-300: #e0e0e0;
+  --color-text-main: #212121;
+}
+
+:root {
+  /* Default variables (Light Mode) linked to theme */
+  --bg-color: var(--color-base-200);
+  --text-color: var(--color-text-main);
+  --card-bg: var(--color-base-100);
+}
+
+[data-theme='dark'] {
+  --color-base-100: #1d232a; /* DaisyUI dark base */
+  --color-base-200: #191e24;
+  --color-base-300: #15191e;
+  --color-text-main: #a6adbb; /* DaisyUI dark text */
+  
+  --bg-color: var(--color-base-200);
+  --text-color: var(--color-text-main);
+  --card-bg: var(--color-base-100);
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Glassmorphism Utility */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .glass-effect {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base-200); 
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

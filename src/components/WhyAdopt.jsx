@@ -1,23 +1,28 @@
 import React from "react";
-import Reveal from "./Reveal";
 
 const WhyAdopt = () => {
   return (
-    <section className="border py-13 rounded">
-      <Reveal>
-        <div className="max-w-5xl mx-auto text-center px-4">
-          <h2 className="text-3xl font-bold mb-4"> Why Adopt from PawMart?</h2>
-          <p className="text-gray-700 text-lg mb-6">
+    <section className="py-12 bg-base-100 rounded-3xl shadow-sm border border-base-200">
+        <div className="max-w-5xl mx-auto text-center px-6">
+          <h2 className="text-4xl font-extrabold mb-6 text-[var(--color-primary)]"> Why Adopt from PawMart?</h2>
+          <div className="space-y-4">
+             <p className="text-base-content/80 text-xl leading-relaxed">
             Adopting pets saves lives and gives loving animals a second chance.
-            At PawMart, we connect you with pets in need of a home, ensuring
+            At <span className="font-bold text-[var(--color-secondary)]">PawMart</span>, we connect you with pets in need of a home, ensuring
             each adoption is responsible and fulfilling.
           </p>
-          <p className="text-gray-700 text-lg">
+          <p className="text-base-content/80 text-xl leading-relaxed">
             By adopting instead of buying, you’re reducing stray populations and
             helping animals find safe, happy homes.
           </p>
+          </div>
+          
+          <div className="mt-8 flex justify-center gap-4">
+             <div className="badge badge-lg bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100 p-4 font-bold border-none">Save a Life</div>
+             <div className="badge badge-lg bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-100 p-4 font-bold border-none">Unconditional Love</div>
+             <div className="badge badge-lg bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-100 p-4 font-bold border-none">End Cruelty</div>
+          </div>
         </div>
-      </Reveal>
     </section>
   );
 };

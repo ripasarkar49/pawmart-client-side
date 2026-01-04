@@ -31,34 +31,44 @@ const heroes = [
 
 const OurHeroes = () => {
   return (
-    <div>
-      <section className="">
-        <div className=" mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-10">Meet Our Pet Heroes</h2>
+    <div className="py-12">
+      <section>
+        <div className="mx-auto px-4 text-center">
+          <h2 className="text-4xl font-extrabold mb-4 text-[var(--color-primary)]">Meet Our Pet Heroes</h2>
+          <p className="text-lg text-base-content/70 mb-12 max-w-2xl mx-auto">These dedicated individuals make a difference in the lives of pets every single day.</p>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {heroes.map((hero, idx) => (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+                className="bg-base-100 p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-base-200 group"
                 data-tooltip-id={`hero-tooltip-${idx}`}
                 data-tooltip-html={`
-                  <div class="p-2 text-left">
-                    <img src="${hero.image}" class="w-24 h-24 rounded-full mb-2 mx-auto"/>
-                    <h3 class="font-bold text-lg mb-1">${hero.name}</h3>
-                    <p class="text-gray-600 mb-1">${hero.role}</p>
-                    <p class="text-gray-600 mb-1"><strong>Location:</strong> ${hero.Add}</p>
-                    <p class="text-gray-600 mb-1"><strong>Phone:</strong> ${hero.PhoneNo}</p>
-                    <p class="text-gray-600"><strong>Email:</strong> ${hero.email}</p>
+                  <div class="p-3 text-left">
+                    <div class="flex items-center gap-3 mb-3 border-b border-gray-500 pb-2">
+                       <img src="${hero.image}" class="w-12 h-12 rounded-full object-cover"/>
+                       <div>
+                         <h3 class="font-bold text-lg text-white">${hero.name}</h3>
+                         <p class="text-xs text-gray-300">${hero.role}</p>
+                       </div>
+                    </div>
+                    <p class="text-sm mb-1 text-gray-200"><strong>📍 Location:</strong> ${hero.Add}</p>
+                    <p class="text-sm mb-1 text-gray-200"><strong>📞 Phone:</strong> ${hero.PhoneNo}</p>
+                    <p class="text-sm text-gray-200"><strong>✉️ Email:</strong> ${hero.email}</p>
                   </div>
                 `}
               >
-                <img
-                  src={hero.image}
-                  alt={hero.name}
-                  className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold">{hero.name}</h3>
-                <p className="text-gray-600">{hero.role}</p>
+                <div className="relative w-32 h-32 mx-auto mb-6">
+                   <div className="absolute inset-0 rounded-full bg-[var(--color-secondary)] opacity-0 group-hover:opacity-20 transition-opacity duration-300 scale-110"></div>
+                   <img
+                    src={hero.image}
+                    alt={hero.name}
+                    className="w-full h-full object-cover rounded-full border-4 border-base-100 shadow-md z-1 relative"
+                  />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-base-content">{hero.name}</h3>
+                <p className="text-[var(--color-primary-light)] font-medium mt-1">{hero.role}</p>
               </div>
             ))}
           </div>
@@ -68,8 +78,10 @@ const OurHeroes = () => {
               key={idx}
               id={`hero-tooltip-${idx}`}
               place="top"
-              effect="white"
+              effect="solid"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.9)", color: "#fff", boxShadow: "0px 4px 20px rgba(0,0,0,0.3)", borderRadius: "12px", zIndex: 50, backdropFilter: "blur(4px)" }}
               className="max-w-xs"
+              clickable={true}
             />
           ))}
         </div>

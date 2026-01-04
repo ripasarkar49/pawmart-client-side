@@ -1,24 +1,33 @@
-import React, { use, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import gsap from "gsap";
+
 const Login = () => {
   const [error, setError] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn, googleLogin } = use(AuthContext);
+  const { signIn, googleLogin } = useContext(AuthContext); // Use useContext here instead of use
   const location = useLocation();
   const Navigate = useNavigate();
-  //   console.log(location);
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(formRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+    );
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    // console.log({ email, password });
+    
     signIn(email, password)
       .then(() => {
         Swal.fire({
@@ -50,68 +59,81 @@ const Login = () => {
         setError(error.message);
       });
   };
+
   const handleTogglePass = (event) => {
     event.preventDefault();
     setShowPassword(!showPassword);
   };
+
   return (
-    <div className="flex justify-center items-center">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-4">
-        <h2 className="font-semibold text-2xl text-center">
-          Login Your Account
+    <div className="flex justify-center items-center min-h-screen bg-[var(--color-base-200)] transition-colors duration-300">
+      <div ref={formRef} className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-8 px-6 border border-base-200">
+        <h2 className="font-extrabold text-3xl text-center text-[var(--color-primary)] mb-2">
+          Welcome Back
         </h2>
-        <form onSubmit={handleLogin} className="card-body">
-          <fieldset className="fieldset">
+        <p className="text-center text-sm text-base-content/60 mb-6">Login to continue to your account.</p>
+
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
             {/* email  */}
-            <label className="label">Email</label>
-            <input
-              name="email"
-              type="email"
-              className="input"
-              placeholder="Email"
-              required
-              onChange={(e) => setUserEmail(e.target.value)}
-            />
+            <div className="form-control">
+              <label className="label text-base-content font-semibold">Email</label>
+              <input
+                name="email"
+                type="email"
+                className="input input-bordered w-full focus:border-[var(--color-primary)] focus:outline-none bg-base-200"
+                placeholder="Enter your email"
+                required
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+            </div>
+
             {/* password */}
-            <label className="label">Password</label>
-            <div className="relative">
+            <div className="form-control relative">
+              <label className="label text-base-content font-semibold">Password</label>
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
-                className="input"
-                placeholder="Password"
+                className="input input-bordered w-full focus:border-[var(--color-primary)] focus:outline-none bg-base-200"
+                placeholder="Enter your password"
                 required
               />
               <button
                 onClick={handleTogglePass}
-                className="btn btn-xs top-2 right-5 absolute"
+                className="absolute right-4 top-[35px] text-base-content/50 hover:text-[var(--color-primary)] transition"
               >
-                {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                {showPassword ? <IoIosEyeOff size={20} /> : <IoIosEye size={20} />}
               </button>
             </div>
-            <div>
-              <Link to="/forget-password" state={userEmail} className="link link-hover">
+
+            <div className="text-right">
+              <Link to="/forget-password" state={userEmail} className="text-sm text-[var(--color-secondary)] hover:underline">
                 Forgot password?
               </Link>
             </div>
-            <button type="submit" className="btn btn-neutral mt-4">
+
+            {/* Login Button */}
+            <button type="submit" className="btn bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-light)] w-full mt-2 text-lg border-none">
               Login
             </button>
-            {error && <p className="text-red-600 text-xs">{error}</p>}
-            <p className="font-bold text-center py-1 ">OR</p>
+            
+            {error && <p className="text-red-500 text-sm text-center font-semibold">{error}</p>}
+
+            <div className="divider text-base-content/50 text-sm">Or login with</div>
+
             <button
               onClick={handleGoogleLogin}
-              className="btn btn-secondary btn-outline w-full"
+              type="button"
+              className="btn btn-outline border-base-300 w-full hover:bg-base-200 hover:text-base-content flex items-center justify-center gap-2"
             >
-              <FaGoogle size={24} /> Login With Google
+              <FaGoogle className="text-blue-500" /> Google
             </button>
-          </fieldset>
-          <p>
-            Don't have an account?{" "}
-            <Link to="/auth/register" className="text-secondary font-semibold">
-              Register
-            </Link>
-          </p>
+
+            <p className="text-center text-sm mt-4 text-base-content/70">
+              Don't have an account?{" "}
+              <Link to="/auth/register" className="text-[var(--color-secondary)] font-bold hover:underline">
+                Register
+              </Link>
+            </p>
         </form>
       </div>
     </div>
